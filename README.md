@@ -6,6 +6,7 @@ Webscraping e suas funcionalidades
 
 - requests
 - bs4 e BeautifulSoup
+- flask
 
 ## Pré-requisitos
 
