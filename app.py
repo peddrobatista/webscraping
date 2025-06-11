@@ -4,19 +4,20 @@ import requests
 from bs4 import BeautifulSoup
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials  # type: ignore
+import json
 import os
 from dotenv import load_dotenv
 
 # Carregar variáveis de ambiente
 load_dotenv()
 
+# Configuração do Google Sheets
+scopes = ["https://www.googleapis.com/auth/spreadsheets"]
+google_creds = json.loads(os.getenv("GOOGLE_CREDENTIALS"))
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(google_creds, scopes)
+client = gspread.authorize(credentials)
 
 app = Flask(__name__)
-
-# Configuração da API do Google Sheets
-scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-credentials = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scopes)
-client = gspread.authorize(credentials)
 
 # ID da planilha e nome da aba
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
