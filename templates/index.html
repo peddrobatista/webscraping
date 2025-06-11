@@ -105,32 +105,26 @@
             let resultado = document.getElementById("resultado");
             resultado.innerHTML = "<h2>Vagas Encontradas</h2>";
 
+            document.getElementById(
+              "data-atualizacao"
+            ).innerText = `🔄 Última atualização: ${data.data}`;
+
             if (data.vagas) {
               let lista = "<ul>";
-              let isPCDSection = false; // Para verificar quando começa a seção PCD
+              let isPCDSection = false;
 
               data.vagas.forEach((vaga) => {
-                let vagaNome = vaga[0].trim(); // Remove espaços extras
+                let vagaNome = vaga[0].trim();
                 let vagaQtd = vaga[1];
 
-                // Se encontrar "PESSOA COM DEFICIÊNCIA", aplica o estilo especial
                 if (vagaNome.toUpperCase() === "PESSOA COM DEFICIÊNCIA") {
                   lista += `<li class="vaga-pcd">${vagaNome}</li>`;
-                  isPCDSection = true; // Indica que a partir daqui são vagas PCD
+                  isPCDSection = true;
                 } else {
-                  // Se já passou por "PESSOA COM DEFICIÊNCIA", mantém a separação
-                  if (isPCDSection && vagaNome) {
-                    lista += `<li>
-                                        <span class="vaga-titulo">${vagaNome}</span>
-                                        <span class="vaga-qtd">${vagaQtd} vaga(s)</span>
-                                    </li>`;
-                  } else {
-                    // Caso normal para vagas comuns
-                    lista += `<li>
-                                        <span class="vaga-titulo">${vagaNome}</span>
-                                        <span class="vaga-qtd">${vagaQtd} vaga(s)</span>
-                                    </li>`;
-                  }
+                  lista += `<li>
+              <span class="vaga-titulo">${vagaNome}</span>
+              <span class="vaga-qtd">${vagaQtd} vaga(s)</span>
+            </li>`;
                 }
               });
 
@@ -146,6 +140,7 @@
   </head>
   <body>
     <h1>Consulta de Vagas - Fortaleza: U.A. Messejana</h1>
+    <p id="data-atualizacao" style="margin-top: 10px; color: #555"></p>
     <button onclick="buscarVagas()">🔎 Buscar Vagas</button>
     <div id="resultado"></div>
   </body>
